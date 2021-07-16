@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "git-commit-msg-linter": "^3.2.6"
+    "git-commit-msg-linter": "^3.2.6",
+    "typeorm": "^0.2.34"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.3",

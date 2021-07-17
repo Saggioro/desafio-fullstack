@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
-import AppError from "@shared/errors/AppError";
+import AppError, { IMessages } from "@shared/errors/AppError";
 
 import ICreatePessoaDTO from "../dtos/ICreatePessoaDTO";
 import Pessoa from "../infra/typeorm/entities/Pessoa";
@@ -26,28 +26,45 @@ class CreatePessoaService {
         sexo,
         email,
     }: ICreatePessoaDTO): Promise<Pessoa> {
+        const errors: IMessages[] = [];
         if (sexo !== "Masculino" && sexo !== "Feminino") {
-            throw new AppError("Sexo deve ser 'Feminino' ou 'Masculino'");
+            errors.push({
+                message: "Sexo deve ser 'Feminino' ou 'Masculino'",
+                field: "sexo",
+            });
         }
 
         if (cpf && cpf.length !== 11) {
-            throw new AppError("CPF enviado está inválido", 400);
-        }
-        const sameCpf = await this.pessoasRepository.findByCpf(cpf);
+            errors.push({
+                message: "CPF enviado está inválido",
+                field: "cpf",
+            });
+        } else {
+            const sameCpf = await this.pessoasRepository.findByCpf(cpf);
 
-        if (sameCpf) {
-            throw new AppError("O CPF enviado já está sendo utilizado");
+            if (sameCpf) {
+                errors.push({
+                    message: "O CPF enviado já está sendo utilizado",
+                    field: "cpf",
+                });
+            }
         }
 
         if (email) {
             const emailRegexp =
                 /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             if (!emailRegexp.test(email)) {
-                throw new AppError("O email enviado é inválido");
+                errors.push({
+                    message: "O email enviado é inválido",
+                    field: "email",
+                });
             }
             const sameEmail = await this.pessoasRepository.findByEmail(email);
             if (sameEmail) {
-                throw new AppError("O email enviado já está sendo utilizado");
+                errors.push({
+                    message: "O email enviado já está sendo utilizado",
+                    field: "email",
+                });
             }
         }
 
@@ -55,7 +72,14 @@ class CreatePessoaService {
             !this.dateProvider.validate(new Date(nascimento)) ||
             !this.dateProvider.beforeToday(new Date(nascimento))
         ) {
-            throw new AppError("Data enviada está inválida");
+            errors.push({
+                message: "Data enviada está inválida",
+                field: "nascimento",
+            });
+        }
+
+        if (errors.length > 0) {
+            throw new AppError(errors);
         }
 
         const pessoa = await this.pessoasRepository.create({

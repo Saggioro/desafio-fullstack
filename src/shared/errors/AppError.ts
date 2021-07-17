@@ -1,10 +1,15 @@
+export interface IMessages {
+    field: string;
+    message: string;
+}
+
 class Error {
-    public readonly message: string;
+    public readonly messages: IMessages[];
 
     public readonly statusCode: number;
 
-    constructor(message: string, statusCode = 400) {
-        this.message = message;
+    constructor(messages: IMessages[], statusCode = 400) {
+        this.messages = messages;
         this.statusCode = statusCode;
     }
 }

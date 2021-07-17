@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import IHashProvider from "@shared/container/providers/HashProvider/models/IHashProvider";
-import AppError from "@shared/errors/AppError";
+import AppError, { IMessages } from "@shared/errors/AppError";
 
 import IUsuariosRepository from "../repositories/IUsuariosRepository";
 
@@ -22,10 +22,18 @@ class CreateUsuarioService {
     ) {}
 
     public async execute({ login, senha, ativo }: IRequest): Promise<void> {
+        const errors: IMessages[] = [];
         const sameLogin = await this.usuariosRepository.findByLogin(login);
 
         if (sameLogin) {
-            throw new AppError("O login enviado já está sendo utilizado", 400);
+            errors.push({
+                message: "O login enviado já está sendo utilizado",
+                field: "login",
+            });
+        }
+
+        if (errors.length > 0) {
+            throw new AppError(errors, 400);
         }
 
         const senhaCriptografada = await this.hashProvider.generateHash(senha);

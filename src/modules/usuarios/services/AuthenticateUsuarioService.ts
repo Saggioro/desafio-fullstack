@@ -30,7 +30,9 @@ class AuthenticateUsuarioService {
         const usuario = await this.usuariosRepository.findByLogin(login);
 
         if (!usuario) {
-            throw new AppError("Login ou senha incorreta");
+            throw new AppError([
+                { message: "Login ou senha incorreta", field: "login" },
+            ]);
         }
 
         const senhaCorreta = await this.hashProvider.compareHash(
@@ -39,13 +41,19 @@ class AuthenticateUsuarioService {
         );
 
         if (!senhaCorreta) {
-            throw new AppError("Login ou senha incorreta.");
+            throw new AppError([
+                { message: "Login ou senha incorreta", field: "login" },
+            ]);
         }
 
         if (!usuario.ativo) {
-            throw new AppError(
-                "Conta desativada. Entre em contato com o seu supervisor."
-            );
+            throw new AppError([
+                {
+                    message:
+                        "Conta desativada. Entre em contato com o seu supervisor",
+                    field: "login",
+                },
+            ]);
         }
 
         const token = sign({}, authConfig.jwt.secret, {

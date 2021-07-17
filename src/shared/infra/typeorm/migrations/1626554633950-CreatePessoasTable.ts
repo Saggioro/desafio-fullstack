@@ -57,5 +57,7 @@ export class CreatePessoasTable1626554633950 implements MigrationInterface {
         );
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {}
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable("pessoas");
+    }
 }

@@ -7,7 +7,6 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/shared/infra/http/server.ts",
     "test": "jest",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
-
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -18,7 +17,8 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0",
-    "typeorm": "^0.2.34"
+    "typeorm": "^0.2.34",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

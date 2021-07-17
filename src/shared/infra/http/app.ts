@@ -4,10 +4,12 @@ import "express-async-errors";
 import cors from "cors";
 import express from "express";
 
+import createConnection from "@shared/infra/typeorm";
+
 import routes from "./routes";
-import "@shared/infra/typeorm";
 import "@shared/container";
 
+createConnection();
 const app = express();
 
 app.use(express.json());

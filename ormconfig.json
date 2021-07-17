@@ -1,5 +1,5 @@
 {
-    "url": "postgres://postgres:docker@localhost:5432/stefanini",
+    "url": "postgres://postgres:docker@localhost:5432/postgres",
     "type": "postgres",
     "database": "postgres",
     "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],

@@ -42,7 +42,7 @@ class CreatePessoaService {
         if (email) {
             const emailRegexp =
                 /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-            if (emailRegexp.test(email)) {
+            if (!emailRegexp.test(email)) {
                 throw new AppError("O email enviado é inválido");
             }
             const sameEmail = await this.pessoasRepository.findByEmail(email);

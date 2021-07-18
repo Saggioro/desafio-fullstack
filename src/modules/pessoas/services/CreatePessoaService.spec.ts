@@ -6,10 +6,11 @@ import AppError from "@shared/errors/AppError";
 
 import ICreatePessoaDTO from "../dtos/ICreatePessoaDTO";
 import FakePessoasRepository from "../repositories/fakes/FakePessoasRepository";
+import IPessoasRepository from "../repositories/IPessoasRepository";
 import CreatePessoaService from "./CreatePessoaService";
 
 let createPessoaService: CreatePessoaService;
-let fakePessoasRepository: FakePessoasRepository;
+let fakePessoasRepository: IPessoasRepository;
 let dateProvider: IDateProvider;
 let brazilValuesProvider: IBrazilValuesProvider;
 
@@ -35,6 +36,14 @@ describe("Criar pessoa", () => {
             nome: "Teste",
             naturalidade: "Recife",
             nacionalidade: "Brasil",
+            endereco: {
+                bairro: "teste",
+                cep: "00000000",
+                cidade: "teste",
+                estado: "teste",
+                numero: 11,
+                rua: "teste",
+            },
         });
 
         const pessoa = await fakePessoasRepository.findByCpf("10297759400");
@@ -51,6 +60,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa);
 
@@ -59,7 +76,6 @@ describe("Criar pessoa", () => {
             await createPessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
     });
-
     it("Não deve permitir criar uma nova Pessoa com o mesmo email", async () => {
         expect(async () => {
             const pessoa: ICreatePessoaDTO = {
@@ -70,6 +86,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa);
 
@@ -89,6 +113,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
@@ -104,6 +136,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
@@ -119,6 +159,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
@@ -134,6 +182,14 @@ describe("Criar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             };
             await createPessoaService.execute(pessoa as ICreatePessoaDTO);
         }).rejects.toBeInstanceOf(AppError);
@@ -149,6 +205,146 @@ describe("Criar pessoa", () => {
 
                 naturalidade: "Recife",
                 nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir criar uma nova Pessoa com uma rua inválida", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir criar uma nova Pessoa com um estado inválido", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    rua: "teste",
+                    numero: 11,
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir criar uma nova Pessoa com um bairro inválid", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    rua: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir criar uma nova Pessoa com uma cidade inválida", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    rua: "teste",
+                    estado: "teste",
+                    numero: 11,
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir criar uma nova Pessoa com um numero inválido", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "00000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    rua: "rua",
+                },
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+    it("Não deve permitir criar uma nova Pessoa com um cep inválido", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+                endereco: {
+                    bairro: "teste",
+                    cep: "invalido",
+                    cidade: "teste",
+                    estado: "teste",
+                    rua: "rua",
+                    numero: 11,
+                },
             };
             await createPessoaService.execute(pessoa as ICreatePessoaDTO);
         }).rejects.toBeInstanceOf(AppError);

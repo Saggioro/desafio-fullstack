@@ -20,6 +20,14 @@ describe("Buscar pessoa pelo ID", () => {
             nome: "Teste",
             naturalidade: "Recife",
             nacionalidade: "Brasilia",
+            endereco: {
+                bairro: "teste",
+                cep: "000000000",
+                cidade: "teste",
+                estado: "teste",
+                numero: 11,
+                rua: "teste",
+            },
         });
 
         const pessoaEncontrada = await getPessoaByIdService.execute(pessoa.id);

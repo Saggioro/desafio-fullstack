@@ -32,6 +32,14 @@ describe("Atualizar pessoa", () => {
             nome: "Teste",
             naturalidade: "Recife",
             nacionalidade: "Brasilia",
+            endereco: {
+                bairro: "teste",
+                cep: "000000000",
+                cidade: "teste",
+                estado: "teste",
+                numero: 11,
+                rua: "teste",
+            },
         });
 
         pessoa.email = "teste2@email.com";
@@ -54,6 +62,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             const pessoa = await fakePessoasRepository.create({
@@ -64,6 +80,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             pessoa.cpf = "10297759400";
@@ -82,6 +106,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             const pessoa = await fakePessoasRepository.create({
@@ -92,6 +124,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             pessoa.email = "teste@email.com";
@@ -110,6 +150,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             const pessoaAlterada = { ...pessoa };
@@ -128,6 +176,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             pessoa.email = "invalido";
@@ -145,6 +201,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             pessoa.nascimento = new Date("invalido");
@@ -162,6 +226,14 @@ describe("Atualizar pessoa", () => {
                 nome: "Teste",
                 naturalidade: "Recife",
                 nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
             });
 
             pessoa.nome = "";

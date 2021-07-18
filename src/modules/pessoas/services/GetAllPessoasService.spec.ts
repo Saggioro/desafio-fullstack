@@ -18,6 +18,14 @@ describe("Buscar pessoa pelo ID", () => {
             nome: "Teste",
             naturalidade: "Recife",
             nacionalidade: "Brasilia",
+            endereco: {
+                bairro: "teste",
+                cep: "000000000",
+                cidade: "teste",
+                estado: "teste",
+                numero: 11,
+                rua: "teste",
+            },
         });
 
         const pessoa2 = await fakePessoasRepository.create({
@@ -28,6 +36,14 @@ describe("Buscar pessoa pelo ID", () => {
             nome: "Teste",
             naturalidade: "Recife",
             nacionalidade: "Brasilia",
+            endereco: {
+                bairro: "teste",
+                cep: "000000000",
+                cidade: "teste",
+                estado: "teste",
+                numero: 11,
+                rua: "teste",
+            },
         });
 
         const pessoas = await getAllPessoasService.execute();

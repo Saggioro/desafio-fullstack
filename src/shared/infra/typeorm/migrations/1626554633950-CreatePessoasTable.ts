@@ -17,7 +17,6 @@ export class CreatePessoasTable1626554633950 implements MigrationInterface {
                         name: "email",
                         type: "varchar",
                         isNullable: true,
-                        isUnique: true,
                     },
                     {
                         name: "cpf",

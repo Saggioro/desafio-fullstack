@@ -15,16 +15,16 @@ class Pessoa {
     nome: string;
 
     @Column()
-    sexo: "Feminino" | "Masculino";
+    sexo?: "Feminino" | "Masculino";
 
     @Column()
     nascimento: Date;
 
     @Column()
-    naturalidade: string;
+    naturalidade?: string;
 
     @Column()
-    nacionalidade: string;
+    nacionalidade?: string;
 
     @Column()
     cpf: string;

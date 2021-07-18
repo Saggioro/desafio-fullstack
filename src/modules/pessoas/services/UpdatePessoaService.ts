@@ -89,6 +89,45 @@ class UpdatePessoaService {
                 field: "nome",
             });
         }
+        if (!data.endereco.bairro) {
+            errors.push({
+                message: "Bairro inválido",
+                field: "bairro",
+            });
+        }
+        if (
+            !data.endereco.cep ||
+            !this.brazilValuesProvider.validateCep(data.endereco.cep)
+        ) {
+            errors.push({
+                message: "CEP inválido",
+                field: "cep",
+            });
+        }
+        if (!data.endereco.cidade) {
+            errors.push({
+                message: "Cidade inválida",
+                field: "cidade",
+            });
+        }
+        if (!data.endereco.estado) {
+            errors.push({
+                message: "Estado inválido",
+                field: "estado",
+            });
+        }
+        if (!data.endereco.numero) {
+            errors.push({
+                message: "Número inválido",
+                field: "numero",
+            });
+        }
+        if (!data.endereco.rua) {
+            errors.push({
+                message: "Rua inválida",
+                field: "rua",
+            });
+        }
 
         if (errors.length > 0) {
             throw new AppError(errors);

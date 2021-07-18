@@ -5,7 +5,6 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToOne,
-    JoinColumn,
     JoinTable,
 } from "typeorm";
 

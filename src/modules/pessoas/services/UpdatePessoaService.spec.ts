@@ -34,11 +34,11 @@ describe("Atualizar pessoa", () => {
             nacionalidade: "Brasilia",
             endereco: {
                 bairro: "teste",
-                cep: "000000000",
+                cep: "00000000",
                 cidade: "teste",
                 estado: "teste",
+                rua: "rua",
                 numero: 11,
-                rua: "teste",
             },
         });
 
@@ -237,6 +237,161 @@ describe("Atualizar pessoa", () => {
             });
 
             pessoa.nome = "";
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir atualizar uma nova Pessoa com uma rua inválida", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.rua = "";
+
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir atualizar uma nova Pessoa com um estado inválido", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.estado = "";
+
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir atualizar uma nova Pessoa com um bairro inválid", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.bairro = "";
+
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir atualizar uma nova Pessoa com uma cidade inválida", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.cidade = "";
+
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+
+    it("Não deve permitir atualizar uma nova Pessoa com um numero de endereço inválido", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.numero = Number("invalido");
+
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
+    it("Não deve permitir atualizar uma nova Pessoa com um cep inválido", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "15585403427",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+                endereco: {
+                    bairro: "teste",
+                    cep: "000000000",
+                    cidade: "teste",
+                    estado: "teste",
+                    numero: 11,
+                    rua: "teste",
+                },
+            });
+
+            pessoa.endereco.cep = "";
+
             await updatePessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
     });

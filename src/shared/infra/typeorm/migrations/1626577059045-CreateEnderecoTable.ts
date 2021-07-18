@@ -59,6 +59,7 @@ export class CreateEnderecoTable1626577059045 implements MigrationInterface {
                         referencedColumnNames: ["id"],
                         columnNames: ["pessoa_id"],
                         onUpdate: "CASCADE",
+                        onDelete: "CASCADE",
                     },
                 ],
             })

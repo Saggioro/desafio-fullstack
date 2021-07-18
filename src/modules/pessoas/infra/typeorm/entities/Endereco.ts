@@ -4,15 +4,21 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    PrimaryColumn,
+    OneToOne,
+    JoinColumn,
 } from "typeorm";
+
+import Pessoa from "./Pessoa";
 
 @Entity("enderecos")
 class Endereco {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryColumn()
     id: string;
 
-    @Column()
-    pessoa_id: string;
+    @OneToOne(() => Pessoa)
+    @JoinColumn({ name: "id", referencedColumnName: "id" })
+    pessoa: Pessoa;
 
     @Column()
     rua: string;

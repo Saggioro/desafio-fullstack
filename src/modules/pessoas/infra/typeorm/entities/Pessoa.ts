@@ -15,7 +15,7 @@ class Pessoa {
     nome: string;
 
     @Column()
-    sexo: "Feminino" | "Masculino" | undefined;
+    sexo: "Feminino" | "Masculino";
 
     @Column()
     nascimento: Date;

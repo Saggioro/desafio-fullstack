@@ -6,6 +6,7 @@ import {
     UpdateDateColumn,
     OneToOne,
     JoinColumn,
+    JoinTable,
 } from "typeorm";
 
 import Endereco from "./Endereco";
@@ -36,8 +37,11 @@ class Pessoa {
     @Column()
     email?: string;
 
-    @OneToOne(() => Endereco)
-    @JoinColumn()
+    @OneToOne(() => Endereco, (endereco) => endereco.pessoa, {
+        eager: true,
+        cascade: true,
+    })
+    @JoinTable()
     endereco: Endereco;
 
     @CreateDateColumn()

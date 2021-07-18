@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import IBrazilValuesProvider from "@shared/container/providers/BrazilValuesProvider/models/IBrazilValuesProvider";
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
 import AppError, { IMessages } from "@shared/errors/AppError";
 
@@ -13,7 +14,10 @@ class UpdatePessoaService {
         private pessoasRepository: IPessoasRepository,
 
         @inject("DateProvider")
-        private dateProvider: IDateProvider
+        private dateProvider: IDateProvider,
+
+        @inject("BrazilValuesProvider")
+        private brazilValuesProvider: IBrazilValuesProvider
     ) {}
 
     public async execute(data: Pessoa): Promise<Pessoa> {
@@ -29,7 +33,11 @@ class UpdatePessoaService {
             });
         }
 
-        if (data.cpf && data.cpf.length !== 11) {
+        if (
+            !data.cpf ||
+            data.cpf.length !== 11 ||
+            !this.brazilValuesProvider.validateCpf(data.cpf)
+        ) {
             errors.push({
                 message: "CPF inválido",
                 field: "cpf",

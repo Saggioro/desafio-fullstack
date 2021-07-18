@@ -1,3 +1,5 @@
+import BrazilianValuesProvider from "@shared/container/providers/BrazilValuesProvider/implementations/BrazilianValuesProvider";
+import IBrazilValuesProvider from "@shared/container/providers/BrazilValuesProvider/models/IBrazilValuesProvider";
 import DatefnsProvider from "@shared/container/providers/DateProvider/implementations/DatefnsProvider";
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
 import AppError from "@shared/errors/AppError";
@@ -8,19 +10,23 @@ import UpdatePessoaService from "./UpdatePessoaService";
 let updatePessoaService: UpdatePessoaService;
 let fakePessoasRepository: FakePessoasRepository;
 let dateProvider: IDateProvider;
+let brazilValuesProvider: IBrazilValuesProvider;
+
 describe("Atualizar pessoa", () => {
     beforeEach(() => {
         fakePessoasRepository = new FakePessoasRepository();
         dateProvider = new DatefnsProvider();
+        brazilValuesProvider = new BrazilianValuesProvider();
         updatePessoaService = new UpdatePessoaService(
             fakePessoasRepository,
-            dateProvider
+            dateProvider,
+            brazilValuesProvider
         );
     });
     it("Deve permitir atualizar uma Pessoa", async () => {
         const pessoa = await fakePessoasRepository.create({
             email: "teste@email.com",
-            cpf: "12312312312",
+            cpf: "10297759400",
             nascimento: new Date("1997-08-18"),
             sexo: "Masculino",
             nome: "Teste",
@@ -28,7 +34,6 @@ describe("Atualizar pessoa", () => {
             nacionalidade: "Brasilia",
         });
 
-        pessoa.cpf = "32132132112";
         pessoa.email = "teste2@email.com";
         pessoa.nome = "teste2@email.com";
         pessoa.nacionalidade = "teste2@email.com";
@@ -36,14 +41,14 @@ describe("Atualizar pessoa", () => {
 
         const pessoaAtualizada = await updatePessoaService.execute(pessoa);
 
-        expect(pessoaAtualizada.cpf).toBe("32132132112");
+        expect(pessoaAtualizada.email).toBe("teste2@email.com");
     });
 
     it("Não deve permitir atualizar uma nova Pessoa com um cpf já existente", async () => {
         expect(async () => {
             await fakePessoasRepository.create({
                 email: "teste@email.com",
-                cpf: "12312312312",
+                cpf: "10297759400",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -61,7 +66,7 @@ describe("Atualizar pessoa", () => {
                 nacionalidade: "Brasilia",
             });
 
-            pessoa.cpf = "12312312312";
+            pessoa.cpf = "10297759400";
 
             await updatePessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
@@ -71,7 +76,7 @@ describe("Atualizar pessoa", () => {
         expect(async () => {
             await fakePessoasRepository.create({
                 email: "teste@email.com",
-                cpf: "12312312312",
+                cpf: "10297759400",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -81,7 +86,7 @@ describe("Atualizar pessoa", () => {
 
             const pessoa = await fakePessoasRepository.create({
                 email: "teste2@email.com",
-                cpf: "32132132112",
+                cpf: "15585403427",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -99,7 +104,7 @@ describe("Atualizar pessoa", () => {
         expect(async () => {
             const pessoa = await fakePessoasRepository.create({
                 email: "teste2@email.com",
-                cpf: "32132132112",
+                cpf: "15585403427",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -117,7 +122,7 @@ describe("Atualizar pessoa", () => {
         expect(async () => {
             const pessoa = await fakePessoasRepository.create({
                 email: "teste2@email.com",
-                cpf: "32132132112",
+                cpf: "15585403427",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -134,7 +139,7 @@ describe("Atualizar pessoa", () => {
         expect(async () => {
             const pessoa = await fakePessoasRepository.create({
                 email: "teste2@email.com",
-                cpf: "32132132112",
+                cpf: "15585403427",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -151,7 +156,7 @@ describe("Atualizar pessoa", () => {
         expect(async () => {
             const pessoa = await fakePessoasRepository.create({
                 email: "teste2@email.com",
-                cpf: "32132132112",
+                cpf: "15585403427",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",

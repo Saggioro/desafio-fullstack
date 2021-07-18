@@ -18,10 +18,12 @@ class FakePessoasRepository implements IPessoasRepository {
         sexo,
         email,
         nascimento,
+        endereco,
     }: ICreatePessoaDTO): Promise<Pessoa> {
         const pessoa = new Pessoa();
+        const id = v4();
         Object.assign(pessoa, {
-            id: v4(),
+            id,
             cpf,
             nacionalidade,
             naturalidade,
@@ -29,13 +31,17 @@ class FakePessoasRepository implements IPessoasRepository {
             sexo,
             email,
             nascimento,
+            endereco: {
+                ...endereco,
+                id,
+            },
         });
         await this.repository.push(pessoa);
         return pessoa;
     }
 
     public async all(): Promise<Pessoa[]> {
-        const pessoas = this.repository;
+        const pessoas = await this.repository;
         return pessoas;
     }
 
@@ -69,7 +75,7 @@ class FakePessoasRepository implements IPessoasRepository {
     }
 
     public async delete(data: Pessoa): Promise<void> {
-        const indexPessoa = this.repository.findIndex(
+        const indexPessoa = await this.repository.findIndex(
             (pessoa) => pessoa.id === data.id
         );
 

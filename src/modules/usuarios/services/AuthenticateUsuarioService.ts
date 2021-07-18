@@ -5,7 +5,6 @@ import { inject, injectable } from "tsyringe";
 import IHashProvider from "@shared/container/providers/HashProvider/models/IHashProvider";
 import AppError from "@shared/errors/AppError";
 
-import Usuario from "../infra/typeorm/entities/Usuario";
 import IUsuariosRepository from "../repositories/IUsuariosRepository";
 
 interface IRequest {

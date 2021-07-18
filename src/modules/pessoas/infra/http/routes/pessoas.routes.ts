@@ -9,5 +9,6 @@ const pessoasRouter = Router();
 const pessoaController = new PessoaController();
 
 pessoasRouter.post("/", ensureAuthenticated, pessoaController.create);
+pessoasRouter.put("/", ensureAuthenticated, pessoaController.create);
 
 export default pessoasRouter;

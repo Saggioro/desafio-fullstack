@@ -10,5 +10,6 @@ const pessoaController = new PessoaController();
 
 pessoasRouter.post("/", ensureAuthenticated, pessoaController.create);
 pessoasRouter.put("/", ensureAuthenticated, pessoaController.create);
+pessoasRouter.delete("/:id", ensureAuthenticated, pessoaController.delete);
 
 export default pessoasRouter;

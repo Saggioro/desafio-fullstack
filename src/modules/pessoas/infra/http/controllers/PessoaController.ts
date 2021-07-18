@@ -1,4 +1,5 @@
 import DeletePessoaService from "@modules/pessoas/services/DeletePessoaService";
+import GetAllPessoasService from "@modules/pessoas/services/GetAllPessoasService";
 import GetPessoaByIdService from "@modules/pessoas/services/GetPessoaByIdService";
 import UpdatePessoaService from "@modules/pessoas/services/UpdatePessoaService";
 import { Request, Response } from "express";
@@ -70,5 +71,16 @@ export default class PessoaController {
         const pessoa = await getPessoaByIdService.execute(id);
 
         return response.json(pessoa);
+    }
+
+    public async index(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        const getAllPessoasService = container.resolve(GetAllPessoasService);
+
+        const pessoas = await getAllPessoasService.execute();
+
+        return response.json(pessoas);
     }
 }

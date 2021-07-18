@@ -4,7 +4,11 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToOne,
+    JoinColumn,
 } from "typeorm";
+
+import Endereco from "./Endereco";
 
 @Entity("pessoas")
 class Pessoa {
@@ -31,6 +35,10 @@ class Pessoa {
 
     @Column()
     email?: string;
+
+    @OneToOne(() => Endereco)
+    @JoinColumn()
+    endereco: Endereco;
 
     @CreateDateColumn()
     created_at: Date;

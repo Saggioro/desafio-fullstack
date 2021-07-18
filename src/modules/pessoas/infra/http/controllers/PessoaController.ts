@@ -20,6 +20,7 @@ export default class PessoaController {
             nacionalidade,
             email,
             cpf,
+            endereco,
         } = request.body;
 
         const createPessoaService = container.resolve(CreatePessoaService);
@@ -32,6 +33,7 @@ export default class PessoaController {
             nacionalidade,
             email,
             cpf,
+            endereco,
         });
 
         return response.status(201).json(pessoa);

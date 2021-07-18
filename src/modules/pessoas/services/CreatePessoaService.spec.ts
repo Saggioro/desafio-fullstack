@@ -1,3 +1,5 @@
+import BrazilianValuesProvider from "@shared/container/providers/BrazilValuesProvider/implementations/BrazilianValuesProvider";
+import IBrazilValuesProvider from "@shared/container/providers/BrazilValuesProvider/models/IBrazilValuesProvider";
 import DatefnsProvider from "@shared/container/providers/DateProvider/implementations/DatefnsProvider";
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
 import AppError from "@shared/errors/AppError";
@@ -9,20 +11,25 @@ import CreatePessoaService from "./CreatePessoaService";
 let createPessoaService: CreatePessoaService;
 let fakePessoasRepository: FakePessoasRepository;
 let dateProvider: IDateProvider;
+let brazilValuesProvider: IBrazilValuesProvider;
+
 describe("Criar pessoa", () => {
     beforeEach(() => {
         fakePessoasRepository = new FakePessoasRepository();
         dateProvider = new DatefnsProvider();
+        brazilValuesProvider = new BrazilianValuesProvider();
+
         createPessoaService = new CreatePessoaService(
             fakePessoasRepository,
-            dateProvider
+            dateProvider,
+            brazilValuesProvider
         );
     });
 
     it("Deve permitir criar uma nova Pessoa", async () => {
         await createPessoaService.execute({
             email: "teste@email.com",
-            cpf: "12312312312",
+            cpf: "10297759400",
             nascimento: new Date("1997-08-18"),
             sexo: "Masculino",
             nome: "Teste",
@@ -30,7 +37,7 @@ describe("Criar pessoa", () => {
             nacionalidade: "Brasil",
         });
 
-        const pessoa = await fakePessoasRepository.findByCpf("12312312312");
+        const pessoa = await fakePessoasRepository.findByCpf("10297759400");
 
         expect(pessoa).toHaveProperty("id");
     });
@@ -38,7 +45,7 @@ describe("Criar pessoa", () => {
         expect(async () => {
             const pessoa: ICreatePessoaDTO = {
                 email: "teste@email.com",
-                cpf: "12312312312",
+                cpf: "10297759400",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",
@@ -57,7 +64,7 @@ describe("Criar pessoa", () => {
         expect(async () => {
             const pessoa: ICreatePessoaDTO = {
                 email: "teste@email.com",
-                cpf: "12312312312",
+                cpf: "10297759400",
                 nascimento: new Date("1997-08-18"),
                 sexo: "Masculino",
                 nome: "Teste",

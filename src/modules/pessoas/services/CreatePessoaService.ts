@@ -38,7 +38,11 @@ class CreatePessoaService {
             });
         }
 
-        if (cpf && !this.brazilValuesProvider.validateCpf(cpf)) {
+        if (
+            !cpf ||
+            cpf.length !== 11 ||
+            !this.brazilValuesProvider.validateCpf(cpf)
+        ) {
             errors.push({
                 message: "CPF enviado está inválido",
                 field: "cpf",

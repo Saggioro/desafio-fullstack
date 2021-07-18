@@ -7,13 +7,6 @@ export class CreateEnderecoTable1626577059045 implements MigrationInterface {
                 name: "enderecos",
                 columns: [
                     {
-                        name: "id",
-                        type: "uuid",
-                        isPrimary: true,
-                        generationStrategy: "uuid",
-                        default: "uuid_generate_v4()",
-                    },
-                    {
                         name: "rua",
                         type: "varchar",
                     },
@@ -38,7 +31,8 @@ export class CreateEnderecoTable1626577059045 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "pessoa_id",
+                        isPrimary: true,
+                        name: "id",
                         type: "uuid",
                     },
                     {
@@ -57,7 +51,7 @@ export class CreateEnderecoTable1626577059045 implements MigrationInterface {
                         name: "EnderecoPessoa",
                         referencedTableName: "pessoas",
                         referencedColumnNames: ["id"],
-                        columnNames: ["pessoa_id"],
+                        columnNames: ["id"],
                         onUpdate: "CASCADE",
                         onDelete: "CASCADE",
                     },

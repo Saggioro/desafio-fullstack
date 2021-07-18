@@ -2,8 +2,6 @@ import DatefnsProvider from "@shared/container/providers/DateProvider/implementa
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
 import AppError from "@shared/errors/AppError";
 
-import ICreatePessoaDTO from "../dtos/ICreatePessoaDTO";
-import Pessoa from "../infra/typeorm/entities/Pessoa";
 import FakePessoasRepository from "../repositories/fakes/FakePessoasRepository";
 import UpdatePessoaService from "./UpdatePessoaService";
 

@@ -4,9 +4,26 @@ import IBrazilValuesProvider from "@shared/container/providers/BrazilValuesProvi
 import IDateProvider from "@shared/container/providers/DateProvider/models/IDateProvider";
 import AppError, { IMessages } from "@shared/errors/AppError";
 
-import ICreatePessoaDTO from "../dtos/ICreatePessoaDTO";
 import Pessoa from "../infra/typeorm/entities/Pessoa";
 import IPessoasRepository from "../repositories/IPessoasRepository";
+
+interface IRequest {
+    nome: string;
+    sexo?: "Feminino" | "Masculino";
+    nascimento: Date;
+    naturalidade?: string;
+    nacionalidade?: string;
+    cpf: string;
+    email?: string;
+    endereco: {
+        rua: string;
+        numero: number;
+        bairro: string;
+        cidade: string;
+        cep: string;
+        estado: string;
+    };
+}
 
 @injectable()
 class CreatePessoaService {
@@ -29,7 +46,8 @@ class CreatePessoaService {
         nome,
         sexo,
         email,
-    }: ICreatePessoaDTO): Promise<Pessoa> {
+        endereco,
+    }: IRequest): Promise<Pessoa> {
         const errors: IMessages[] = [];
         if (sexo !== "Masculino" && sexo !== "Feminino" && sexo !== undefined) {
             errors.push({
@@ -93,6 +111,46 @@ class CreatePessoaService {
             });
         }
 
+        if (!endereco.bairro) {
+            errors.push({
+                message: "Bairro inválido",
+                field: "bairro",
+            });
+        }
+        if (
+            !endereco.cep ||
+            !this.brazilValuesProvider.validateCep(endereco.cep)
+        ) {
+            errors.push({
+                message: "CEP inválido",
+                field: "cep",
+            });
+        }
+        if (!endereco.cidade) {
+            errors.push({
+                message: "Cidade inválida",
+                field: "cidade",
+            });
+        }
+        if (!endereco.estado) {
+            errors.push({
+                message: "Estado inválido",
+                field: "estado",
+            });
+        }
+        if (!endereco.numero) {
+            errors.push({
+                message: "Número inválido",
+                field: "numero",
+            });
+        }
+        if (!endereco.rua) {
+            errors.push({
+                message: "Rua inválida",
+                field: "rua",
+            });
+        }
+
         if (errors.length > 0) {
             throw new AppError(errors);
         }
@@ -105,6 +163,7 @@ class CreatePessoaService {
             nome,
             naturalidade,
             nascimento,
+            endereco,
         });
 
         return pessoa;

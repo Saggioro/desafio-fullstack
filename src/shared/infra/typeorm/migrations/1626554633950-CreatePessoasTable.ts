@@ -16,10 +16,13 @@ export class CreatePessoasTable1626554633950 implements MigrationInterface {
                     {
                         name: "email",
                         type: "varchar",
+                        isNullable: true,
+                        isUnique: true,
                     },
                     {
                         name: "cpf",
                         type: "varchar",
+                        isUnique: true,
                     },
                     {
                         name: "nome",
@@ -28,14 +31,17 @@ export class CreatePessoasTable1626554633950 implements MigrationInterface {
                     {
                         name: "sexo",
                         type: "varchar",
+                        isNullable: true,
                     },
                     {
                         name: "naturalidade",
                         type: "varchar",
+                        isNullable: true,
                     },
                     {
                         name: "nacionalidade",
                         type: "varchar",
+                        isNullable: true,
                     },
 
                     {

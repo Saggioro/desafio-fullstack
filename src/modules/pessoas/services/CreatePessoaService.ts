@@ -27,7 +27,7 @@ class CreatePessoaService {
         email,
     }: ICreatePessoaDTO): Promise<Pessoa> {
         const errors: IMessages[] = [];
-        if (sexo !== "Masculino" && sexo !== "Feminino") {
+        if (sexo !== "Masculino" && sexo !== "Feminino" && sexo !== undefined) {
             errors.push({
                 message: "Sexo deve ser 'Feminino' ou 'Masculino'",
                 field: "sexo",

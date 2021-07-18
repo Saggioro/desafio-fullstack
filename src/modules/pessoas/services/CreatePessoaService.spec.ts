@@ -18,21 +18,7 @@ describe("Criar pessoa", () => {
             dateProvider
         );
     });
-    it("Deve permitir criar uma nova Pessoa", async () => {
-        await createPessoaService.execute({
-            email: "teste@email.com",
-            cpf: "12312312312",
-            nascimento: new Date("1997-08-18"),
-            sexo: "Masculino",
-            nome: "Teste",
-            naturalidade: "Recife",
-            nacionalidade: "Brasilia",
-        });
 
-        const pessoa = await fakePessoasRepository.findByCpf("12312312312");
-
-        expect(pessoa).toHaveProperty("id");
-    });
     it("Deve permitir criar uma nova Pessoa", async () => {
         await createPessoaService.execute({
             email: "teste@email.com",

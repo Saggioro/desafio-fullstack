@@ -18,7 +18,11 @@ class UpdatePessoaService {
 
     public async execute(data: Pessoa): Promise<Pessoa> {
         const errors: IMessages[] = [];
-        if (data.sexo !== "Masculino" && data.sexo !== "Feminino") {
+        if (
+            data.sexo !== "Masculino" &&
+            data.sexo !== "Feminino" &&
+            data.sexo !== undefined
+        ) {
             errors.push({
                 message: "Sexo deve ser 'Feminino' ou 'Masculino'",
                 field: "sexo",
@@ -33,7 +37,7 @@ class UpdatePessoaService {
         } else {
             const sameCpf = await this.pessoasRepository.findByCpf(data.cpf);
 
-            if (sameCpf) {
+            if (sameCpf && sameCpf.id !== data.id) {
                 errors.push({
                     message: "O CPF enviado já está sendo utilizado",
                     field: "cpf",
@@ -53,7 +57,7 @@ class UpdatePessoaService {
             const sameEmail = await this.pessoasRepository.findByEmail(
                 data.email
             );
-            if (sameEmail) {
+            if (sameEmail && sameEmail.id !== data.id) {
                 errors.push({
                     message: "O email enviado já está sendo utilizado",
                     field: "email",

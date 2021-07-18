@@ -1,4 +1,5 @@
 import DeletePessoaService from "@modules/pessoas/services/DeletePessoaService";
+import GetPessoaByIdService from "@modules/pessoas/services/GetPessoaByIdService";
 import UpdatePessoaService from "@modules/pessoas/services/UpdatePessoaService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -59,5 +60,15 @@ export default class PessoaController {
         await deletePessoaService.execute(id);
 
         return response.status(200).send();
+    }
+
+    public async show(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
+
+        const getPessoaByIdService = container.resolve(GetPessoaByIdService);
+
+        const pessoa = await getPessoaByIdService.execute(id);
+
+        return response.json(pessoa);
     }
 }

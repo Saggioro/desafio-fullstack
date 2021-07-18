@@ -1,3 +1,4 @@
+import UpdatePessoaService from "@modules/pessoas/services/UpdatePessoaService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -31,5 +32,18 @@ export default class PessoaController {
         });
 
         return response.status(201).json(pessoa);
+    }
+
+    public async update(
+        request: Request,
+        response: Response
+    ): Promise<Response> {
+        const data = request.body;
+
+        const updatePessoaService = container.resolve(UpdatePessoaService);
+
+        const pessoa = await updatePessoaService.execute(data);
+
+        return response.json(pessoa);
     }
 }

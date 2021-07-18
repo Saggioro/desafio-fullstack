@@ -31,7 +31,7 @@ class UpdatePessoaService {
 
         if (data.cpf && data.cpf.length !== 11) {
             errors.push({
-                message: "CPF enviado está inválido",
+                message: "CPF inválido",
                 field: "cpf",
             });
         } else {
@@ -50,7 +50,7 @@ class UpdatePessoaService {
                 /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             if (!emailRegexp.test(data.email)) {
                 errors.push({
-                    message: "O email enviado é inválido",
+                    message: "O email inválido",
                     field: "email",
                 });
             }
@@ -70,8 +70,15 @@ class UpdatePessoaService {
             !this.dateProvider.beforeToday(new Date(data.nascimento))
         ) {
             errors.push({
-                message: "Data enviada está inválida",
+                message: "Data de nascimento inválida",
                 field: "nascimento",
+            });
+        }
+
+        if (!data.nome) {
+            errors.push({
+                message: "Nome inválido",
+                field: "nome",
             });
         }
 

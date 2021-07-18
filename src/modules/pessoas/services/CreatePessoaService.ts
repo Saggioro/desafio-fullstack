@@ -78,6 +78,13 @@ class CreatePessoaService {
             });
         }
 
+        if (!nome) {
+            errors.push({
+                message: "Nome inválido",
+                field: "nome",
+            });
+        }
+
         if (errors.length > 0) {
             throw new AppError(errors);
         }

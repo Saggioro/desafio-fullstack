@@ -146,4 +146,21 @@ describe("Atualizar pessoa", () => {
             await updatePessoaService.execute(pessoa);
         }).rejects.toBeInstanceOf(AppError);
     });
+
+    it("Não deve permitir atualizar uma nova Pessoa com um nome inválido", async () => {
+        expect(async () => {
+            const pessoa = await fakePessoasRepository.create({
+                email: "teste2@email.com",
+                cpf: "32132132112",
+                nascimento: new Date("1997-08-18"),
+                sexo: "Masculino",
+                nome: "Teste",
+                naturalidade: "Recife",
+                nacionalidade: "Brasilia",
+            });
+
+            pessoa.nome = "";
+            await updatePessoaService.execute(pessoa);
+        }).rejects.toBeInstanceOf(AppError);
+    });
 });

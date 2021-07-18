@@ -131,4 +131,19 @@ describe("Criar pessoa", () => {
             await createPessoaService.execute(pessoa as ICreatePessoaDTO);
         }).rejects.toBeInstanceOf(AppError);
     });
+
+    it("Não deve permitir criar uma nova Pessoa com um nome inválido", async () => {
+        expect(async () => {
+            const pessoa = {
+                email: "teste@email.com",
+                cpf: "12312312312",
+                nascimento: new Date("1997-08-18"),
+                sexo: "invalido",
+
+                naturalidade: "Recife",
+                nacionalidade: "Brasil",
+            };
+            await createPessoaService.execute(pessoa as ICreatePessoaDTO);
+        }).rejects.toBeInstanceOf(AppError);
+    });
 });

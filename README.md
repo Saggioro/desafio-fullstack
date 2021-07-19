@@ -84,4 +84,5 @@ VERSAO 2
 - `yarn dev` - inicia o servidor de desenvolvimento com o hot-reload ativado `http://localhost:3333`
 - `yarn start` - inicia o servidor apontando para a pasta de build 'dist' `http://localhost:3333`
 - `yarn build` - Gera uma build
+- `yarn test` - executa os testes e gera um coverage da aplicação
 

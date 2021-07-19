@@ -2,7 +2,7 @@
 
 ## :bulb: Introdução 
 
-Este projeto é uma desafia para vaga FullStack na Stefanini
+Este projeto é uma desafio para vaga FullStack na Stefanini
 
 ## :house: Iniciando o projeto
 
